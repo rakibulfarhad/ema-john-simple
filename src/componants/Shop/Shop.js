@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Cart from '../cart/cart'
+import Cart from '../Cart/Cart'
 import Product from '../Product/Product';
 import { addToDb, getStoredCart } from '../../utilities/fakedb'
 import './Shop.css'
@@ -19,17 +19,17 @@ const Shop = () => {
     }, [])
 
     useEffect(() => {
-        if(products.length){
+        if (products.length) {
             const savedCart = getStoredCart();
             const storedCart = [];
-            for(const key in savedCart){
+            for (const key in savedCart) {
                 const addedProduct = products.find(product => product.key === key);
-                if(addedProduct){
+                if (addedProduct) {
                     const quantity = savedCart[key];
                     addedProduct.quantity = quantity;
                     storedCart.push(addedProduct);
                 }
-                
+
             }
             setCart(storedCart);
         }
@@ -52,13 +52,13 @@ const Shop = () => {
     return (
         <>
             <div className="search-container">
-                <input 
-                type="text"
-                onChange={handleSearch} 
-                placeholder="Search-Product" />
+                <input
+                    type="text"
+                    onChange={handleSearch}
+                    placeholder="Search-Product" />
             </div>
             <div className="shop-container">
-                    <div className="product-container">
+                <div className="product-container">
                     <h3>Products:{products.length}</h3>
                     {
                         displayProducts.map(product => <Product
@@ -68,9 +68,9 @@ const Shop = () => {
                         ></Product>)
                     }
                 </div>
-            <div className="cart-container">
-                <Cart cart={cart}></Cart>
-            </div>
+                <div className="cart-container">
+                    <Cart cart={cart}></Cart>
+                </div>
             </div>
         </>
     );
