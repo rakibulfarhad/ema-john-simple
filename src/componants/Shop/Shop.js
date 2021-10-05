@@ -4,10 +4,12 @@ import Product from '../Product/Product';
 import { addToDb, getStoredCart } from '../../utilities/fakedb'
 import './Shop.css'
 import { Link } from 'react-router-dom';
+import useCart from '../../hooks/useCart';
+
 
 const Shop = () => {
     const [products, setProducts] = useState([]);
-    const [cart, setCart] = useState([]);
+    const [cart, setCart] = useCart(products);
     const [displayProducts, setDisplayProducts] = useState([]);
 
     useEffect(() => {
@@ -42,7 +44,7 @@ const Shop = () => {
         if(exists){
             const rest = cart.filter(pd => pd.key !== product.key);
             exists.quantity = exists.quantity + 1;
-            newCart = [...rest, product];
+            newCart = [...rest, exists];
         }
         else{
             product.quantity = 1;
